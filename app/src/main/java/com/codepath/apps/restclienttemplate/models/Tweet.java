@@ -20,6 +20,7 @@ public class Tweet {
         tweet.uid = object.getLong("id");
         tweet.createdAt = object.getString("created_at");
         tweet.user = User.fromJSON(object.getJSONObject("user"));
+//        object.getJSONObject("entities").getJSONArray("media").get(0);
 
         return tweet;
     }
