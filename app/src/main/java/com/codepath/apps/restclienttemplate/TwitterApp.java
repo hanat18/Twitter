@@ -3,8 +3,13 @@ package com.codepath.apps.restclienttemplate;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.text.format.DateUtils;
 
 import com.facebook.stetho.Stetho;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /*
  * This is the Android application itself and is used to configure various settings

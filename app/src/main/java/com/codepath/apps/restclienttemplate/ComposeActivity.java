@@ -1,0 +1,18 @@
+package com.codepath.apps.restclienttemplate;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+
+public class ComposeActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_compose);
+    }
+
+    public void onSubmit(View view){
+        this.finish();
+    }
+}
