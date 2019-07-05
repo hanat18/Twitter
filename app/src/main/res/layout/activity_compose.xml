@@ -12,18 +12,18 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:counterEnabled="true"
-        app:counterMaxLength="10"
+        app:counterMaxLength="280"
         app:layout_constraintBottom_toTopOf="@+id/tweetButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/composedText"
+            android:layout_width="381dp"
+            android:layout_height="52dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:ems="10"
-            android:hint="Username" />
+            android:ems="10" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -33,6 +33,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="232dp"
+        android:background="#1F87E2"
         android:onClick="onSubmit"
         android:text="TWEET"
         app:layout_constraintBottom_toBottomOf="parent"

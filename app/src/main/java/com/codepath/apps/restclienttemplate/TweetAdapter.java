@@ -17,6 +17,7 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,13 +52,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         // get the data according to the position
         Tweet tweet = mTweets.get(i);
-        String tName = "<b>" + tweet.user.name + "</b>" + " @" + tweet.user.screenName;
+        String tName = "<b>" + tweet.user.name + "</b>" + "<font color=\"#808080\">" + "   @" + tweet.user.screenName;
 
         String time = getRelativeTimeAgo(tweet.createdAt);
 
         // populate the views according to this data
         viewHolder.tvBody.setText(tweet.body);
         viewHolder.tvName.setText(Html.fromHtml(tName));
+        viewHolder.tvTime.setText(time);
 //        viewHolder.tvUsername.setText();
 
         Glide.with(context)
@@ -107,5 +109,17 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvBody = itemView.findViewById(R.id.tvBody);
             tvName = itemView.findViewById(R.id.tvName);
         }
+    }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        mTweets.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(ArrayList<Tweet> list) {
+        mTweets.addAll(list);
+        notifyDataSetChanged();
     }
 }

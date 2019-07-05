@@ -1,11 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--<item-->
+        <!--android:id="@+id/twitterLogo"-->
+        <!--android:checkable="true"-->
+        <!--android:icon="@drawable/ic_launcher_twitter_round"-->
+        <!--android:title="logo"-->
+        <!--android:visible="true"-->
+        <!--app:showAsAction="always"></item>-->
+
     <item
-        android:id="@+id/item1"
+        android:id="@+id/composeClick"
         android:checkable="true"
-        android:icon="@drawable/ic_add_black_24dp"
-        android:onClick="onComposeAction"
+        android:icon="@drawable/vector_compose_fab"
         android:title="Compose"
         android:visible="true"
         app:showAsAction="always"></item>
