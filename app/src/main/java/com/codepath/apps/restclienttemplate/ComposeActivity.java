@@ -14,10 +14,6 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
-
-
-
-        getActionBar().setTitle(TweetAdapter.class.getName());
     }
 
     public void onSubmit(View view){

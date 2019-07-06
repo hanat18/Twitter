@@ -1,7 +1,9 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +51,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
     // bind the values based on the position of the element
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         // get the data according to the position
@@ -56,16 +60,28 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
         String time = getRelativeTimeAgo(tweet.createdAt);
 
-        // populate the views according to this data
-        viewHolder.tvBody.setText(tweet.body);
-        viewHolder.tvName.setText(Html.fromHtml(tName));
-        viewHolder.tvTime.setText(time);
-//        viewHolder.tvUsername.setText();
-
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)
                 .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
                 .into(viewHolder.ivProfileImage);
+
+        // populate the views according to this data
+        viewHolder.tvBody.setText(tweet.body);
+        viewHolder.tvName.setText(Html.fromHtml(tName));
+        viewHolder.tvTime.setText(time);
+
+
+        if(tweet.imageUrl != null){
+            Log.d("image", tweet.imageUrl);
+            Glide.with(context)
+                    .load(tweet.imageUrl)
+                    .into(viewHolder.tvImage);
+        }
+        else{
+            viewHolder.tvImage.setVisibility(View.GONE);
+        }
+
+//        viewHolder.tvUsername.setText();
     }
 
     @Override
@@ -98,6 +114,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         public TextView tvTime;
         public TextView tvBody;
         public TextView tvName;
+        public ImageView tvImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,6 +125,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvTime = itemView.findViewById(R.id.tvTime);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvName = itemView.findViewById(R.id.tvName);
+            tvImage = itemView.findViewById(R.id.tvImage);
         }
     }
 

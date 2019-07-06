@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.codepath.apps.restclienttemplate.models.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -31,6 +32,7 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTweets;
     private SwipeRefreshLayout swipeContainer;
     private final int REQUEST_CODE = 20;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -49,8 +51,17 @@ public class TimelineActivity extends AppCompatActivity {
         //construct the adapter from this datasource
         tweetAdapter = new TweetAdapter(tweets);
 
-        // RecyclerView setup (layout manager, user adapter)
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(linearLayoutManager);
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadNextDataFromApi(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvTweets.addOnScrollListener(scrollListener);
 
         //set the adapter
         rvTweets.setAdapter(tweetAdapter);
@@ -77,12 +88,21 @@ public class TimelineActivity extends AppCompatActivity {
         populateTimeline();
     }
 
+    public void loadNextDataFromApi(int offset) {
+        fetchTimelineAsync(offset+1);
+        tweetAdapter.notifyDataSetChanged();
+        // Send an API request to retrieve appropriate paginated data
+        //  --> Send the request including an offset value (i.e `page`) as a query parameter.
+        //  --> Deserialize and construct new model objects from the API response
+        //  --> Append the new data objects to the existing set of items inside the array of items
+        //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
+    }
+
     public void fetchTimelineAsync(int page) {
         // Send the network request to fetch the updated data
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.
         client.getHomeTimeline(new JsonHttpResponseHandler() {
-
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.codepath.apps.restclienttemplate.models.SampleModel;
 import com.codepath.apps.restclienttemplate.models.SampleModelDao;
@@ -53,5 +54,15 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// This should be tied to a button used to login
 	public void loginToRest(View view) {
 		getClient().connect();
+	}
+
+	public void onLikeClick(View view){
+		ImageButton liked = view.findViewById(R.id.liked);
+		liked.setBackgroundColor(255);
+	}
+
+	public void onRetweetClick(View view){
+		ImageButton retweeted = view.findViewById(R.id.retweet);
+		retweeted .setBackgroundColor(223);
 	}
 }
