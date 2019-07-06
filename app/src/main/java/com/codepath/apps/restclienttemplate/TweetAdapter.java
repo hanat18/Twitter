@@ -30,6 +30,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
     Context context;
     public List<Tweet> mTweets;
+//    public ImageButton liked;
+//    public ImageButton retweet;
     // pass in the tweet array in the constructor
 
     public TweetAdapter(List<Tweet> tweets){
@@ -60,16 +62,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
         String time = getRelativeTimeAgo(tweet.createdAt);
 
-        Glide.with(context)
-                .load(tweet.user.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-                .into(viewHolder.ivProfileImage);
-
         // populate the views according to this data
         viewHolder.tvBody.setText(tweet.body);
         viewHolder.tvName.setText(Html.fromHtml(tName));
         viewHolder.tvTime.setText(time);
 
+//        viewHolder.liked.setOnClickListener(onClick());
 
         if(tweet.imageUrl != null){
             Log.d("image", tweet.imageUrl);
@@ -81,7 +79,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             viewHolder.tvImage.setVisibility(View.GONE);
         }
 
-//        viewHolder.tvUsername.setText();
+        Glide.with(context)
+                .load(tweet.user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+                .into(viewHolder.ivProfileImage);
     }
 
     @Override
@@ -126,6 +127,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvBody = itemView.findViewById(R.id.tvBody);
             tvName = itemView.findViewById(R.id.tvName);
             tvImage = itemView.findViewById(R.id.tvImage);
+//            liked = itemView.findViewById(R.id.liked);
+//            retweet = itemView.findViewById(R.id.retweet);
         }
     }
 
@@ -140,4 +143,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         mTweets.addAll(list);
         notifyDataSetChanged();
     }
+
+//    public void onClick(){
+////        ImageButton im = findViewById(R.id.liked);
+//        .setBackgroundColor(255);
+//    }
 }

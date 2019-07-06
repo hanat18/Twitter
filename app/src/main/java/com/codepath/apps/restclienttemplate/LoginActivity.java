@@ -55,14 +55,4 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	public void loginToRest(View view) {
 		getClient().connect();
 	}
-
-	public void onLikeClick(View view){
-		ImageButton liked = view.findViewById(R.id.liked);
-		liked.setBackgroundColor(255);
-	}
-
-	public void onRetweetClick(View view){
-		ImageButton retweeted = view.findViewById(R.id.retweet);
-		retweeted .setBackgroundColor(223);
-	}
 }
