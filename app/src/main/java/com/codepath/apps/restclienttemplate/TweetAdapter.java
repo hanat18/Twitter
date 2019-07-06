@@ -67,9 +67,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         viewHolder.tvName.setText(Html.fromHtml(tName));
         viewHolder.tvTime.setText(time);
 
-//        viewHolder.liked.setOnClickListener(onClick());
-
         if(tweet.imageUrl != null){
+            viewHolder.tvImage.setVisibility(View.VISIBLE);
             Log.d("image", tweet.imageUrl);
             Glide.with(context)
                     .load(tweet.imageUrl)
